@@ -1,0 +1,24 @@
+{
+  "name": "taz-docs",
+  "version": "1.0.0",
+  "description": "docs for taz bot",
+  "private": true,
+  "type": "module",
+  "license": "(MIT AND CC-BY-4.0)",
+  "exports": {
+    ".": "./src/render.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "preview": "node tools/preview.mjs",
+    "test": "node --test \"test/*.test.mjs\"",
+    "check-links": "node tools/check-links.mjs"
+  },
+  "dependencies": {
+    "markdown-it": "^15.0.2",
+    "markdown-it-container": "^4.0.0"
+  }
+}
