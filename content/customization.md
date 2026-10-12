@@ -24,6 +24,8 @@ every server runs its own rules. branding, welcome/leave messages, sticky messag
 - `/general settings leavechannel | leavemessage` - same, for when someone leaves.
 :::
 
+bots that join or leave are skipped by default. turn on "welcome bots too" or "announce bots too" with `/general toggle`, in `/general menu`, or on the dashboard if you want them announced as well.
+
 both support `{user}`, `{username}`, `{server}`, and `{memberCount}` placeholders, and can be sent as plain text or a full embed (title, color, image, fields) - the embed builder is dashboard-only. in any message box on the dashboard, typing `@` opens a dropdown of your roles (plus `@everyone` and `@here`) and `#` one of your channels, and the mention is inserted wherever your cursor is. `/general menu` has its own welcome/leave screens too, each with a "create a channel for this" button next to the channel picker - the dashboard's welcome/leave channel pickers have the same button.
 
 ## sticky messages {#sticky-messages}
