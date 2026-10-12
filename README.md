@@ -46,9 +46,8 @@ unknown block, or a link that isn't `https://`, a site path like
 
 pull requests go to the `staging` branch. i review every one before it's
 merged, and CI runs the tests, the build and the link check on each one.
-`staging` goes to `main` together with taz and the website whenever a version
-of taz comes out, and taz.bot builds its docs from this repo, so a merged
-change goes live with the next release.
+taz.bot builds its docs from `main`, so a merged change goes live once
+`staging` is merged into `main`.
 
 ## what's in here
 

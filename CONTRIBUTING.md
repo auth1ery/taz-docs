@@ -5,12 +5,12 @@ Thank you for contributing!!! this is the general rules for writing and updating
 ## where to send changes
 
 open pull requests against the `staging` branch, not `main`. new docs land on
-`staging` alongside the matching changes to taz and the website, and all three
-go to `main` together when a version of taz comes out. so the docs on taz.bot
-always match the taz people are actually running.
+`staging` alongside the matching changes to taz and the website, and go live on
+taz.bot once `staging` is merged into `main`. so the docs always match the taz
+people are actually running.
 
 if you're writing about something that's out right now, `staging` is still the
-right place - it goes live with the next release.
+right place - it goes live the next time `staging` is merged into `main`.
 
 ## the voice
 
