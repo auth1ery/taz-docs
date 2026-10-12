@@ -12,7 +12,7 @@ you can fix it yourself :>
    landing page.
 2. edit it. [CONTRIBUTING.md](CONTRIBUTING.md) has the voice and every building
    block (command lists, notes, heading ids), with examples.
-3. open a pull request.
+3. open a pull request against the `staging` branch.
 
 small fixes are generally fine straight from github's editor. for anything bigger,
 check it locally first. 
@@ -44,9 +44,11 @@ unknown block, or a link that isn't `https://`, a site path like
 
 ## how a change gets onto taz.bot
 
-i review every pull request before it's merged, and CI runs the tests, the
-build and the link check on each one. taz.bot builds its docs from this repo,
-so once something's merged, the site picks it up next time it deploys.
+pull requests go to the `staging` branch. i review every one before it's
+merged, and CI runs the tests, the build and the link check on each one.
+`staging` goes to `main` together with taz and the website whenever a version
+of taz comes out, and taz.bot builds its docs from this repo, so a merged
+change goes live with the next release.
 
 ## what's in here
 
