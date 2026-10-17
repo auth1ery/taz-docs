@@ -80,6 +80,7 @@ always usable with your server's prefix (`{prefix}trigger`); optionally also reg
 
 ::: commands
 - `/general settings prefix` - the text-command prefix, shared with moderation's prefix commands.
+- `/general settings extraprefixes prefixes:` - up to 5 more prefixes that also work, separated by spaces (`none` clears them) - handy while a server moves from one prefix to another. the main prefix is the one taz shows in examples. also on the dashboard's general page, under "other prefixes".
 - `/general settings addautorole | removeautorole` - roles granted automatically to every new member.
 - `/general settings prefixpermissions` - off by default. turn it on to hold text commands to the same per-channel permissions as slash commands, instead of letting them run anywhere the member can type.
 - `/general toggle feature: state:` - switch welcome messages, leave messages, or auto-roles off without clearing what you configured for them.
