@@ -3,7 +3,7 @@ title: customization
 description: every server runs its own rules - branding, welcome/leave messages, sticky messages, scheduled announcements, and custom commands all live under /general.
 order: 6
 icon: fa-palette
-card: branding, welcome/leave messages, sticky messages, scheduled announcements, and custom commands.
+card: branding, welcome/leave messages, sticky messages, scheduled announcements, custom commands, and join-to-create voice hubs.
 ---
 
 every server runs its own rules. branding, welcome/leave messages, sticky messages, scheduled announcements, and custom commands all live under `/general`, or the dashboard's general settings page.
@@ -76,10 +76,40 @@ a phrase matches as a whole word, so "hi" doesn't fire on "this". the reply take
 
 always usable with your server's prefix (`{prefix}trigger`); optionally also registered as a real `/trigger` slash command. free servers get 25 slash-registered custom commands, taz plus gets 75 - prefix-triggered ones are effectively unlimited.
 
+## voice hubs {#voice-hubs}
+
+a hub is a voice channel that hands out voice channels: join it and taz makes you your own, moves you into it, and deletes it once everyone's left. she waits 10 seconds before deleting, so dropping out and straight back in doesn't cost you the channel. free servers get 1 hub, taz plus is unlimited. set them up with `/voice hub`, or under "join-to-create" on the dashboard's general page, which can also create the hub channel for you.
+
+::: commands
+- `/voice hub add channel: category: name_template: user_limit:` - turns a voice channel into a hub. new channels go in `category` (the hub's own by default), get their name from `name_template` (`{username}'s channel` by default - `{username}` and `{displayname}` work), and hold up to `user_limit` people (0, the default, means no limit; the most is 99). adding a hub turns join-to-create on.
+- `/voice hub edit channel:` - change any of those on an existing hub.
+- `/voice hub remove channel:` - stops a channel being a hub. channels it already made stay until they empty out.
+- `/voice hub list` - every hub and how it's set up.
+- `/voice toggle state:` - pause join-to-create without losing your hubs.
+:::
+
+`/voice hub` and `/voice toggle` need Manage Server (or a dashboard grant on general - `hub list` only needs view access).
+
+### owning a channel {#voice-hub-owners}
+
+whoever joined the hub owns the channel it made. by default the owner can rename it and change its settings (bitrate, user limit and so on) and move, server-mute and server-deafen people in it, all from discord's own channel settings and right-click menu, and only in their own channel. each of those can be turned off per hub with the `owner_` options on `add` and `edit`. an owner can't edit the channel's permissions in discord, so the only say they get over who joins is `/voice lock`.
+
+::: commands
+- `/voice lock` / `unlock` - stop new people joining your channel, or let them in again. whoever's already in can stay.
+- `/voice kick user:` - disconnect someone from your channel.
+- `/voice transfer user:` - hand your channel to someone else in it.
+- `/voice claim` - take over a channel whose owner has left. anyone still in it can.
+:::
+
+these are open to every member, but only work on a channel you own (or, for `claim`, one whose owner has left).
+
+new channels copy their category's permissions, so whoever can't see or join that category can't see or join them either. taz needs Manage Channels, Manage Roles and Move Members to make channels, set them up and move people in - without those, joining a hub does nothing - and discord only lets her give an owner permissions she has herself. a server can have at most 50 of these channels open at once, a safety net well under discord's 500-channel limit. making and deleting them stays out of your mod log, so a busy evening doesn't bury everything else.
+
 ## other settings
 
 ::: commands
 - `/general settings prefix` - the text-command prefix, shared with moderation's prefix commands.
+- `/general settings extraprefixes prefixes:` - up to 5 more prefixes that also work, separated by spaces (`none` clears them) - handy while a server moves from one prefix to another. the main prefix is the one taz shows in examples. also on the dashboard's general page, under "other prefixes".
 - `/general settings addautorole | removeautorole` - roles granted automatically to every new member.
 - `/general settings prefixpermissions` - off by default. turn it on to hold text commands to the same per-channel permissions as slash commands, instead of letting them run anywhere the member can type.
 - `/general toggle feature: state:` - switch welcome messages, leave messages, or auto-roles off without clearing what you configured for them.

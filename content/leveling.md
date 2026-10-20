@@ -23,7 +23,7 @@ everything below lives under `/level settings`, the dashboard's leveling page, o
 ::: commands
 - `channel` / `clearchannel` - where level-up announcements post - optional. with no channel set, taz posts in whichever channel the member actually leveled up in, instead of staying silent.
 - level-up message (dashboard only) - customize what's posted on level-up - plain text, a full embed, or a dedicated "level up" image card styled like the rank card (not a copy of `/rank`'s card - built around the old->new level transition instead). text supports `{user}`/`{username}`/`{server}`/`{memberCount}` plus `{level}`/`{oldLevel}`/`{newLevel}`.
-- `curve` / `xppermessage` - how much xp a message earns, and how the level curve scales.
+- `curve` / `xppermessage` - how much xp a message earns (7-15 by default, up to 1,000 before boosts), and how the level curve scales.
 - `rolestackmode` - whether level roles stack or replace the previous tier.
 - `prestige` - the level required to prestige. unset means prestige is disabled - there's no sane default.
 - `decay` - opt-in weekly xp decay for inactive members. off by default.
@@ -86,7 +86,7 @@ csv and taz's json load straight back in with `/level import`.
 
 ::: commands
 - `/level levelrole set|remove|list` - a role granted automatically at a given level.
-- `/level boosterrole set|remove|list` - an xp multiplier for a specific role (usually the server booster role), up to 100x. `0` means that role earns nothing. a member with more than one gets the highest.
+- `/level boosterrole set|remove|list` - an xp multiplier for a specific role (usually the server booster role), up to 100x. `0` means that role earns nothing. a member with more than one gets the highest, and a booster role in a boosted channel still tops out at 100x.
 - `/level xpchannel set|remove|list` - an xp multiplier for a specific channel: above 1 boosts it (up to 100x), 0 turns xp off there, and anything below 0 (down to -10) makes talking there *cost* xp. also on the dashboard under "channel xp". see [losing xp](#losing-xp) for what a loss can do.
 - `/level user modify|delete` - manually adjust or wipe a specific member's level/xp. adjusting *your own* needs the separate "modify your own level" fake permission on top of leveling access - see [fake permissions](/docs/moderation#fake-permissions). every hand edit, delete and wipe lands in your mod log with the before and after numbers (the **Levels** logging toggle).
 - `/level syncroles` - retroactively grants level roles to every member who's earned one but is missing it - fixes members whose level/xp was set some other way (a migration from another bot, an admin edit) and so never actually got the role. also on the dashboard, as a "sync roles now" button.

@@ -10,7 +10,7 @@ counting channels with strikes and bans, image tools, birthday announcements, a 
 
 ## counting {#counting}
 
-members count up together, one number per message, one person - post twice in a row or get the number wrong, and it's a strike. a server can run several independent counting channels at once, each its own separate game - trailing chatter or an emoji after a valid number (`"52 lol"`) doesn't break it, taz just reads the leading number.
+members count up together, one number per message, one person - get the number wrong and it's a strike, and posting twice in a row gets your number removed. a server can run several independent counting channels at once, each its own separate game - trailing chatter or an emoji after a valid number (`"52 lol"`) doesn't break it, taz just reads the leading number.
 
 ::: commands
 - `/counting add channel: ban_role:` - adds a counting channel. free servers get 3, taz plus is unlimited.
@@ -20,15 +20,29 @@ members count up together, one number per message, one person - post twice in a 
 - `/counting status channel:` - current count, record, and last counter for one channel - open to everyone, not just staff. channel is optional if there's only one, or you're already in it.
 - `/counting unban` / `clear-strikes` - undo a counting ban, or clear someone's strikes - bans are server-wide, across every counting channel. both the automatic ban and the pardon are written to your mod log (the **Counting Bans** logging toggle), so a quietly-applied ban isn't invisible after the fact.
 - `/counting settings bans_enabled: ban_limit: math_enabled:` - configure the ban-on-too-many-mistakes behavior, and whether a math expression counts as the next number.
+- `/counting settings mistakes: mistake_notice:` - what a wrong number does, and whether taz tells people in the channel or by DM - see [wrong numbers](#counting-mistakes).
 - `/counting settings delete_chatter: delete_after: chatter_message:` - what happens to messages that aren't counting - see below.
+- `/counting milestone add type: number: role:` / `remove` / `list` - roles for counting milestones - see [milestone roles](#counting-milestones).
+- `/counting settings milestones: milestone_roles: milestone_announce:` - turn milestone roles on or off, keep every one or only the highest, and whether taz celebrates in the channel.
 - `/counting disable` - removes every counting channel from this server.
 :::
 
-status/leaderboard resolve which channel you mean automatically when it's obvious (the channel the command was run in, or the server's only one) - no need to pick one every time. there's no manual reset - a mistake resets a channel's count on its own, and that's the only way it moves.
+status/leaderboard resolve which channel you mean automatically when it's obvious (the channel the command was run in, or the server's only one) - no need to pick one every time. there's no manual reset - a wrong number resets a channel's count on its own (unless the server deletes wrong numbers instead), and that's the only way it moves.
 
-status is open to any member; everything else above needs Manage Server (or a dashboard staff grant).
+status and `milestone list` are open to any member; everything else above needs Manage Server (or a dashboard staff grant).
 
 bans-on-mistake are on by default (3 strikes) but fully configurable, or can be turned off completely if you just want the counting without consequences.
+
+### wrong numbers {#counting-mistakes}
+
+by default a wrong number resets the count back to 1 and taz calls it out in the channel. both halves are yours to change, with `/counting settings` or on the dashboard's fun page:
+
+::: commands
+- `mistakes:` - `reset` (the default) sends the count back to 1. `delete` removes the wrong number and keeps the count going, so one typo doesn't wipe out a long run.
+- `mistake_notice:` - `public` (the default) says it in the channel. `dm` tells the person privately instead, and also covers "someone already counted that" and "you can't count twice in a row". if their DMs are closed, taz falls back to the channel. when the count resets, the channel still hears that it's back at 1 - just without naming who broke it.
+:::
+
+either way a wrong number is a strike toward a [counting ban](#counting), if bans are on. strikes stay until the ban lands or staff run `/counting clear-strikes`.
 
 ### messages that aren't counting {#counting-chatter}
 
@@ -44,6 +58,24 @@ by default taz tolerates a few non-counting messages in a row, then posts a warn
 ::: note
 chatter and media are two independent switches, so **"delete gifs but leave conversation alone"** is a real setup - that's the point of splitting them. media gets deleted on sight rather than waiting for the limit because a gif pushes the current number off everyone's screen in a way "lol" doesn't. turning `delete_media` off doesn't make gifs exempt, it just makes them count as ordinary chatter like anything else.
 :::
+
+### milestone roles {#counting-milestones}
+
+give a role when someone reaches a counting milestone. there are two kinds, and a server can mix them:
+
+- **a member's own total** (`type:personal`) - how many numbers they've counted, across every counting channel in the server. add one later and anyone already past it gets the role the next time they count.
+- **the count itself** (`type:count`) - whoever types that exact number gets the role, in any of the server's counting channels, every time the count gets there.
+
+::: commands
+- `/counting milestone add type: number: role:` - adds a milestone. adding the same kind and number again swaps its role. up to 25 per server.
+- `/counting milestone remove type: number:` - removes one.
+- `/counting milestone list` - every milestone and its role.
+- `milestone_roles:` (in `/counting settings`) - `stack` (the default) keeps every milestone role a member has earned. `highest` keeps only the role of their top milestone of each kind and takes the lower ones away.
+- `milestone_announce:` - whether taz posts a 🎉 in the channel when someone hits a milestone. on by default.
+- `milestones:` - turn handing out roles off without losing the list.
+:::
+
+taz can only give roles below her own highest role, and needs Manage Roles. if she can't give one, the celebration says so instead of failing quietly.
 
 ### global leaderboards {#counting-leaderboards}
 
