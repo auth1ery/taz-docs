@@ -19,7 +19,10 @@ a one-click ticket panel routes support requests, reaction roles let members opt
 - `/ticket panel edit | set-mode | delete | list` - manage existing panels.
 - `/ticket ban add | remove | list` - block a specific member from opening tickets. adding and removing a ticket ban is logged to your mod log with who did it (the **Ticket Bans** logging toggle).
 - `/transcripts mine | user | all` - pull a closed ticket's transcript back up - your own, a specific member's (staff only), or a list of everyone who has one (staff only). see [utilities](/docs/utilities#transcripts).
+- `/purge-archives` - deletes the closed tickets in your archive category, after listing them and asking. open tickets and any other channel in the category are left alone, and transcripts are kept. admins only.
 :::
+
+support roles are optional. a ticket is always visible to whoever opened it and to your admins; add support roles with `/mod settings addsupportrole` (or per button) so your staff can see them too and get pinged when one opens. admins count as support either way, so they can claim and close tickets.
 
 the dashboard's tickets page covers the same ground with a proper builder UI, if you'd rather not do it all from Discord.
 
