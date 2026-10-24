@@ -101,7 +101,8 @@ the file names channels and roles by their discord ids, so when you load it into
 
 ::: commands
 - `/level levelrole set|remove|list` - a role granted automatically at a given level.
-- `/level boosterrole set|remove|list` - an xp multiplier for a specific role (usually the server booster role), up to 100x. `0` means that role earns nothing. a member with more than one gets the highest, and a booster role in a boosted channel still tops out at 100x.
+- `/level boosterrole set|remove|list` - an xp multiplier for a specific role (usually the server booster role), up to 100x. `0` means that role earns nothing. a booster role in a boosted channel still tops out at 100x.
+- `/level boosterrole stacking mode:` - what a member with more than one booster role gets: only the highest multiplier (the default), or all of them multiplied together (2x and 1.5x make 3x). also on the dashboard, under booster bonus.
 - `/level xpchannel set|remove|list` - an xp multiplier for a specific channel: above 1 boosts it (up to 100x), 0 turns xp off there, and anything below 0 (down to -10) makes talking there *cost* xp. also on the dashboard under "channel xp". see [losing xp](#losing-xp) for what a loss can do.
 - `/level user modify|delete` - manually adjust or wipe a specific member's level/xp. adjusting *your own* needs the separate "modify your own level" fake permission on top of leveling access - see [fake permissions](/docs/moderation#fake-permissions). every hand edit, delete and wipe lands in your mod log with the before and after numbers (the **Levels** logging toggle).
 - `/level syncroles` - retroactively grants level roles to every member who's earned one but is missing it - fixes members whose level/xp was set some other way (a migration from another bot, an admin edit) and so never actually got the role. also on the dashboard, as a "sync roles now" button.
