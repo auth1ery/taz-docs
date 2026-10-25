@@ -42,6 +42,7 @@ when someone DMs taz, she asks which server it's for (only servers they're in th
 - **who answers:** your [support roles](#tickets) (`/mod settings addsupportrole`), plus anyone with Manage Server or a tickets 'edit' grant. support roles get pinged when a conversation opens.
 - **where:** your modmail category, or the ticket category if you don't pick one.
 - **one at a time:** a member has at most one open conversation per server. messaging taz again adds to it. if they have conversations open with more than one server, taz asks which one each message is for.
+- **DM settings:** `/modmail open` won't reach someone who turned off DMs from taz with `/me dms`. replies in a conversation they started still go through, since they asked.
 - **blocking someone:** a [ticket ban](#tickets) (`/ticket ban add`) stops them opening modmail too.
 - **transcripts:** closed conversations are saved like ticket transcripts, so the member can find theirs with `/transcripts mine` and staff with `/transcripts user`.
 - **anonymous replies:** off by default, so members know who they're talking to. turn them on with `anonymous_replies` to make every reply show as "staff" instead. the channel always shows which staff member sent what.
