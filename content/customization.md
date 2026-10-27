@@ -17,6 +17,8 @@ every server runs its own rules. branding, welcome/leave messages, sticky messag
 - `/general profile banner | clearbanner | bio | clearbio` - a per-server banner and bio - taz plus.
 :::
 
+a new avatar or banner is checked against taz's image rules before it's saved: no nudity or sexually explicit content (suggestive is fine), nothing graphic or gory, no hate symbols, and nothing about known sex offenders. if an image breaks one, it isn't saved. a link is saved as the image itself, so changing what's at the link later doesn't change taz's avatar.
+
 ## welcome & leave messages {#welcome-leave}
 
 ::: commands

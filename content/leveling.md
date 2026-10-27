@@ -62,7 +62,9 @@ what to do about members who already have a level here:
 - **overwrite** - everyone in the file is set to exactly what it says. the preview tells you how many people that lowers.
 - **only add people with no level yet** - anyone who already has a level is left alone.
 
-if an error interrupts an import part-way, taz tells you how many members were already written; on the dashboard, press import again and it finishes only the rest. if taz itself restarts in the middle of an import, that progress is lost - members written so far stay written, and nothing resumes on its own. in that case run the import again with **keep whichever is higher** (or **only add people with no level yet**), which is safe to repeat. running it again in **overwrite** sets everyone in the file back to the file's values, so anyone who earned xp since would lose it. if someone earns more xp between the preview and your confirming it, taz leaves them alone rather than lower them or overwrite what they've got now, and tells you how many it skipped (except in overwrite mode, which sets everyone to exactly what you confirmed). members on your xp exemption list are skipped, members who've left the server are imported anyway (they get their level back if they return), and prestige is never touched. importing needs Manage Server, Administrator, or the separate "import levels from a file" [fake permission](/docs/moderation#fake-permissions) - it can overwrite a whole leaderboard, so it's kept apart from ordinary leveling access - and it's logged in your mod log (the **Levels** toggle).
+if an error interrupts an import part-way, taz tells you how many members were already written; on the dashboard, press import again and it finishes only the rest (that still works after taz restarts, for as long as the preview would have lasted). with `/level import`, run it again with **keep whichever is higher** (or **only add people with no level yet**), which is safe to repeat; running it again in **overwrite** sets everyone in the file back to the file's values, so anyone who earned xp since would lose it. if taz herself restarts in the middle of an import, she finishes it when she's back and says so in your mod log.
+
+taz checks your preview again when you confirm. if someone earns more xp in between, taz leaves them alone rather than lower them or overwrite what they've got now, and tells you how many it skipped (except in overwrite mode, which sets everyone to exactly what you confirmed). anyone added to your xp exemption list in between is skipped too. if the server's xp curve changed in between, nothing is written and you're asked to preview again, since the levels in the preview were worked out on the old curve. members on your xp exemption list are skipped, members who've left the server are imported anyway (they get their level back if they return), and prestige is never touched. importing needs Manage Server, Administrator, or the separate "import levels from a file" [fake permission](/docs/moderation#fake-permissions) - it can overwrite a whole leaderboard, so it's kept apart from ordinary leveling access - and it's logged in your mod log (the **Levels** toggle).
 
 ::: note
 importing doesn't hand out level roles on its own, since giving thousands of people roles at once should be your call. run `/level syncroles` afterwards (or "sync roles now" on the dashboard) to grant the roles everyone has earned.
@@ -82,11 +84,25 @@ get everyone's xp and level out as a file - a backup before an overwrite import,
 
 csv and taz's json load straight back in with `/level import`.
 
+## copying settings {#settings}
+
+save every leveling setting to a file and load it back later, or into another server: the level-up channel and message, the xp curve, xp per message and cooldown, level roles, booster roles, channel multipliers, exemptions, rank card, decay, prestige, losing xp, voice xp, and whether leveling and voice xp are on. members' levels aren't in it - that's [exporting levels](#export).
+
+::: commands
+- `/level exportsettings` - sends you the file (only you see it).
+- `/level importsettings file:` - shows which settings the file would replace, and changes nothing until you confirm. it's logged in your mod log (the **Levels** toggle).
+:::
+
+both are also on the dashboard's leveling page, under "copy settings", and need Manage Server, Administrator, or edit access to leveling.
+
+the file names channels and roles by their discord ids, so when you load it into a different server, anything that server doesn't have is left out (the preview says how many). if none of a setting's channels or roles exist there - say, every level role is from the old server - the server keeps its own for that setting instead of losing it. members named in the xp exemption list are kept, since a person is the same everywhere.
+
 ## level roles & booster bonus
 
 ::: commands
 - `/level levelrole set|remove|list` - a role granted automatically at a given level.
-- `/level boosterrole set|remove|list` - an xp multiplier for a specific role (usually the server booster role), up to 100x. `0` means that role earns nothing. a member with more than one gets the highest, and a booster role in a boosted channel still tops out at 100x.
+- `/level boosterrole set|remove|list` - an xp multiplier for a specific role (usually the server booster role), up to 100x. `0` means that role earns nothing. a booster role in a boosted channel still tops out at 100x.
+- `/level boosterrole stacking mode:` - what a member with more than one booster role gets: only the highest multiplier (the default), or all of them multiplied together (2x and 1.5x make 3x). also on the dashboard, under booster bonus.
 - `/level xpchannel set|remove|list` - an xp multiplier for a specific channel: above 1 boosts it (up to 100x), 0 turns xp off there, and anything below 0 (down to -10) makes talking there *cost* xp. also on the dashboard under "channel xp". see [losing xp](#losing-xp) for what a loss can do.
 - `/level user modify|delete` - manually adjust or wipe a specific member's level/xp. adjusting *your own* needs the separate "modify your own level" fake permission on top of leveling access - see [fake permissions](/docs/moderation#fake-permissions). every hand edit, delete and wipe lands in your mod log with the before and after numbers (the **Levels** logging toggle).
 - `/level syncroles` - retroactively grants level roles to every member who's earned one but is missing it - fixes members whose level/xp was set some other way (a migration from another bot, an admin edit) and so never actually got the role. also on the dashboard, as a "sync roles now" button.
