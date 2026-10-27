@@ -12,25 +12,47 @@ bans, kicks, mutes, warns, purges, jail, and lockdowns - each available as its o
 
 these are standalone commands - use them directly, no menu required.
 
+### punishments
+
 ::: commands
 - `/ban target: reason: duration: unit:` - permanent by default; add a duration + unit for a temporary ban that auto-lifts.
 - `/kick target: reason:` - removes a member; they can rejoin with a new invite.
-- `/unban user: reason:` - lifts a ban - takes a user ID or a username, so it works on someone who isn't in the server to pick from a list.
 - `/mute target: duration: unit: reason: add_warn:` - Discord timeout - can't send messages, react, or speak until it expires.
-- `/unmute target: reason:` - lifts an active timeout early.
 - `/warn add|list|remove|clear` - add a warn, list a user's (or the server's) warns, remove the most recent one, or clear all of them. warns count toward the [warn ladder](/docs/auto-moderation#warn-ladder) until they fall off - 30 days by default, adjustable per server and per warn on the dashboard's warns tab.
 - `/softban target: reason: days:` - bans then immediately unbans - bulk-deletes recent messages without a lasting ban.
 - `/massban ids: reason: delete_days:` - bans up to 200 users at once by ID.
+- `/jail target: reason: duration: unit:` / `/unjail target: reason:` - hands someone a jail role that hides the rest of the server from them - see below. add a duration to release them automatically. needs the role configured first.
+- `/fakeban target: reason:` - posts a convincing ban message without actually banning anyone - for a laugh, not real enforcement.
+:::
+
+### reversals and adjustments
+
+::: commands
+- `/unban user: reason:` - lifts a ban - takes a user ID or a username, so it works on someone who isn't in the server to pick from a list.
+- `/unmute target: reason:` - lifts an active timeout early.
 - `/duration target: duration: unit: reason:` - extends or shortens an already-active mute or ban without lifting and re-issuing it.
+- `/temprole add|remove|list` - give someone a role that removes itself after a set time - see [temporary roles](#temporary-roles).
+:::
+
+### cleanup
+
+::: commands
 - `/purge amount: user: contains: has_attachment:` - bulk-deletes recent messages, optionally filtered by author, text, or attachments.
 - `/clean amount:` - deletes taz's own recent messages in a channel, without touching anyone else's.
 - `/snipe public:` - shows you the last message deleted in the current channel, and who sent it, for up to 10 minutes after it's gone. only you see it unless you set `public` to true. messages removed by `/purge` or by taz's own filters, and bot messages, aren't kept. needs Manage Messages or a `/snipe` [fake permission](#fake-permissions) grant. it's on by default; turn it off with `/mod toggle feature:snipe` or on the dashboard's moderation page.
+:::
+
+### channel control
+
+::: commands
 - `/lockdown scope: channel: reason:` / `/unlock` - locks a channel, its whole category, or the entire server from sending messages - unlock restores the exact prior state.
 - `/slowmode seconds:` - sets slowmode on the current channel.
-- `/jail target: reason: duration: unit:` / `/unjail target: reason:` - hands someone a jail role that hides the rest of the server from them - see below. add a duration to release them automatically. needs the role configured first.
-- `/temprole add|remove|list` - give someone a role that removes itself after a set time - see [temporary roles](#temporary-roles).
+:::
+
+### records
+
+::: commands
 - `/case view|reason|note|delete` - look up a case, fix its reason, leave a private staff note on someone, or delete a case - see [moderation history](#cases).
-- `/fakeban target: reason:` - posts a convincing ban message without actually banning anyone - for a laugh, not real enforcement.
 :::
 
 ## moderation history (cases) {#cases}
